@@ -19,6 +19,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            position: relative;
         }
 
         /* Burbujas flotantes */
@@ -50,11 +51,58 @@
             }
         }
 
+        /* Medusas de fondo */
+        .jellyfish {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.15;
+            z-index: 1;
+        }
+
+        .jellyfish-1 {
+            top: 10%;
+            left: 5%;
+            font-size: 80px;
+            animation: float-slow 8s infinite ease-in-out;
+        }
+
+        .jellyfish-2 {
+            top: 25%;
+            right: 10%;
+            font-size: 100px;
+            animation: float-slow 10s infinite ease-in-out;
+        }
+
+        .jellyfish-3 {
+            bottom: 20%;
+            left: 15%;
+            font-size: 90px;
+            animation: float-slow 9s infinite ease-in-out;
+        }
+
+        .jellyfish-4 {
+            bottom: 10%;
+            right: 5%;
+            font-size: 110px;
+            animation: float-slow 11s infinite ease-in-out;
+        }
+
+        @keyframes float-slow {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px);
+            }
+            50% {
+                transform: translateY(30px) translateX(20px);
+            }
+        }
+
         /* Pantalla 1 - Portada */
         .screen {
             display: none;
             text-align: center;
             animation: fadeIn 0.5s ease-in;
+            position: relative;
+            z-index: 10;
         }
 
         .screen.active {
@@ -242,10 +290,32 @@
             .screen3 {
                 padding: 1rem;
             }
+
+            .jellyfish-1 {
+                font-size: 60px;
+            }
+
+            .jellyfish-2 {
+                font-size: 70px;
+            }
+
+            .jellyfish-3 {
+                font-size: 65px;
+            }
+
+            .jellyfish-4 {
+                font-size: 75px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Medusas de fondo -->
+    <div class="jellyfish jellyfish-1">🪼</div>
+    <div class="jellyfish jellyfish-2">🪼</div>
+    <div class="jellyfish jellyfish-3">🪼</div>
+    <div class="jellyfish jellyfish-4">🪼</div>
+
     <!-- Burbujas decorativas -->
     <div id="bubbles-container"></div>
 
@@ -258,11 +328,11 @@
 
     <!-- Pantalla 2 - Selecciona amiga -->
     <div class="screen screen2" id="screen2">
-        <h2>💕 Elige una amiga 💕</h2>
+        <h2>Elige a una tilina pro</h2>
         <div class="friends-container">
-            <button class="friend-btn" onclick="showCard('issah')">💙 Issah-chan</button>
-            <button class="friend-btn" onclick="showCard('ally')">💜 Ally-chan</button>
-            <button class="friend-btn" onclick="showCard('duberek')">🖤 Duberek-chan</button>
+            <button class="friend-btn" onclick="showCard('issah')">Issah-chan</button>
+            <button class="friend-btn" onclick="showCard('ally')">Ally-chan</button>
+            <button class="friend-btn" onclick="showCard('duberek')">Duberek-chan</button>
         </div>
     </div>
 
@@ -295,19 +365,19 @@
         // Datos de las amigas
         const friends = {
             issah: {
-                name: '💙 Issah-chan',
+                name: 'Issah-chan',
                 message: 'olq sofi uwu sabecs q te kiero mucho osiois , espero q un dia lisandrito-chan te hable y eso muy pro yyyy ojala konozcas a Sunghoon un dia d eztos mhh si.. kda k veo a Cosmo me recuerda a vos por ESE día ke hicimos \'\'cosplay\'\' yyyy ps quedo raro pero está bien uwu,, al igual q cada que veo a Owynn es inevitable no pensar en vos, al igual k las focas/medusassss-- JAJAJAJ pero mhmmmmm no se, t kiero mucho aunq no lo parezca o((>ω< ))o',
-                image: 'https://i.pinimg.com/736x/7c/1f/12/7c1f121c8e62e5c79f53ca95e9e2e49f.png'
+                image: 'cosmo.png'
             },
             ally: {
-                name: '💜 Ally-chan',
+                name: 'Ally-chan',
                 message: 'La razón por la que me recuerdas a Tina Kitten es por su amabilidad y su humor, tal y komotu, tu amabilidad es honesta y tu humor es idéntico, aveces puede ser demasiado DEmasiado negro pero no deja de ser tuyo y eso es una de las cosas que te hace ser tu, Gracias por mantener siempre esa personalidad intacta, por abrazar tu humor sin rodeos y por ser ese espacio divertido, caótico y cálido donde siempre da gusto estar.\n\nSunghoon me recuerda a ti, siempre que lo veo es komo "OMG SUNGHOON SOFIFIIFI" ahre tampoco así pero siempre me siento así, igual k ver al gustavin y al sabroso.\n\nPor eso te tqm amiga :) 💕💕',
-                image: 'https://i.pinimg.com/736x/8c/7e/67/8c7e679d6e39a94e56b77e4c8b0a31c2.jpg'
+                image: 'tina.png'
             },
             duberek: {
-                name: '🖤 Duberek-chan',
+                name: 'Duberek-chan',
                 message: 'Sos mi vieja w, mi capivro cuando todos se van y nos quedamos chillando a lo autista 💔',
-                image: 'https://i.pinimg.com/736x/e8/a8/0b/e8a80b0b8b3c8d7e9f7c8e8e0b8e0b8e.png'
+                image: 'hinata.png'
             }
         };
 
