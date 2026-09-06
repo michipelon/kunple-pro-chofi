@@ -32,6 +32,7 @@
             border-radius: 50%;
             pointer-events: none;
             animation: float 6s infinite ease-in;
+            z-index: 1;
         }
 
         @keyframes float {
@@ -55,10 +56,10 @@
         .swimming-seal {
             position: fixed;
             pointer-events: none;
-            opacity: 0.3;
+            opacity: 0.25;
             z-index: 2;
-            font-size: 60px;
-            animation: swim 15s infinite linear;
+            font-size: 50px;
+            animation: swim 20s infinite linear;
         }
 
         @keyframes swim {
@@ -286,13 +287,14 @@
             width: 90%;
             max-width: 700px;
             max-height: 90vh;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
             padding: 2rem;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .card-header {
@@ -301,11 +303,13 @@
             align-items: center;
             margin-bottom: 2rem;
             flex-shrink: 0;
+            gap: 1rem;
         }
 
         .card-header h2 {
             font-size: 2em;
             color: #2c5f7c;
+            flex: 1;
         }
 
         .back-btn {
@@ -318,6 +322,7 @@
             font-weight: bold;
             transition: all 0.3s ease;
             flex-shrink: 0;
+            white-space: nowrap;
         }
 
         .back-btn:hover {
@@ -345,6 +350,8 @@
             justify-content: center;
             margin-top: 1rem;
             flex-shrink: 0;
+            position: relative;
+            align-items: center;
         }
 
         .character-img {
@@ -352,6 +359,30 @@
             height: auto;
             border-radius: 20px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Foquitas abrazadas para Issah */
+        .hugging-seals {
+            display: none;
+            font-size: 80px;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+            animation: hug 2s infinite ease-in-out;
+        }
+
+        .hugging-seals.show {
+            display: flex;
+        }
+
+        @keyframes hug {
+            0%, 100% {
+                gap: 10px;
+            }
+            50% {
+                gap: 5px;
+            }
         }
 
         /* Responsive */
@@ -400,6 +431,19 @@
 
             .swimming-seal {
                 font-size: 40px;
+            }
+
+            .hugging-seals {
+                font-size: 60px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .card-header h2 {
+                font-size: 1.5em;
             }
         }
 
@@ -468,6 +512,11 @@
         <div class="message-text" id="friend-message">Mensaje</div>
         <div class="character-container">
             <img id="friend-image" class="character-img" src="" alt="Personaje">
+            <div class="hugging-seals" id="hugging-seals">
+                <span>🦭</span>
+                <span>💕</span>
+                <span>🦭</span>
+            </div>
         </div>
     </div>
 
@@ -490,17 +539,20 @@
             issah: {
                 name: 'Issah-chan',
                 message: 'olq sofi uwu sabecs q te kiero mucho osiois , espero q un dia lisandrito-chan te hable y eso muy pro yyyy ojala konozcas a Sunghoon un dia d eztos mhh si.. kda k veo a Cosmo me recuerda a vos por ESE día ke hicimos \'\'cosplay\'\' yyyy ps quedo raro pero está bien uwu,, al igual q cada que veo a Owynn es inevitable no pensar en vos, al igual k las focas/medusassss-- JAJAJAJ pero mhmmmmm no se, t kiero mucho aunq no lo parezca o((>ω< ))o',
-                image: 'cosmitooo.jpg'
+                image: 'cosmitooo.jpg',
+                showHuggingSeals: true
             },
             ally: {
                 name: 'Ally-chan',
                 message: 'La razón por la que me recuerdas a Tina Kitten es por su amabilidad y su humor, tal y komotu, tu amabilidad es honesta y tu humor es idéntico, aveces puede ser demasiado DEmasiado negro pero no deja de ser tuyo y eso es una de las cosas que te hace ser tu, Gracias por mantener siempre esa personalidad intacta, por abrazar tu humor sin rodeos y por ser ese espacio divertido, caótico y cálido donde siempre da gusto estar.\n\nSunghoon me recuerda a ti, siempre que lo veo es komo "OMG SUNGHOON SOFIFIIFI" ahre tampoco así pero siempre me siento así, igual k ver al gustavin y al sabroso.\n\nPor eso te tqm amiga :) 💕💕',
-                image: 'tiinaaa.jpg'
+                image: 'tiinaaa.jpg',
+                showHuggingSeals: false
             },
             duberek: {
                 name: 'Duberek-chan',
                 message: 'Sos mi vieja w, mi capivro cuando todos se van y nos quedamos chillando a lo autista 💔',
-                image: 'hinataaa.jpg'
+                image: 'hinataaa.jpg',
+                showHuggingSeals: false
             }
         };
 
@@ -515,6 +567,14 @@
             document.getElementById('friend-name').textContent = data.name;
             document.getElementById('friend-message').textContent = data.message;
             document.getElementById('friend-image').src = data.image;
+            
+            // Mostrar u ocultar las foquitas abrazadas
+            const huggingSeals = document.getElementById('hugging-seals');
+            if (data.showHuggingSeals) {
+                huggingSeals.classList.add('show');
+            } else {
+                huggingSeals.classList.remove('show');
+            }
 
             document.getElementById('screen2').classList.remove('active');
             document.getElementById('screen3').classList.add('active');
