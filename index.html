@@ -148,6 +148,14 @@
             font-style: italic;
         }
 
+        .button-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         .btn {
             padding: 15px 40px;
             font-size: 1.2em;
@@ -168,6 +176,21 @@
 
         .btn:active {
             transform: translateY(-1px);
+        }
+
+        .seal-keychain {
+            width: 120px;
+            height: 120px;
+            animation: swing 2s infinite ease-in-out;
+        }
+
+        @keyframes swing {
+            0%, 100% {
+                transform: rotate(-5deg);
+            }
+            50% {
+                transform: rotate(5deg);
+            }
         }
 
         /* Pantalla 2 - Selecciona amiga */
@@ -306,6 +329,15 @@
             .jellyfish-4 {
                 font-size: 75px;
             }
+
+            .seal-keychain {
+                width: 80px;
+                height: 80px;
+            }
+
+            .button-container {
+                gap: 1rem;
+            }
         }
     </style>
 </head>
@@ -323,7 +355,10 @@
     <div class="screen screen1 active" id="screen1">
         <h1>✨ Sofi Pro Homealoooneeeeeee..! ✨</h1>
         <p>Hmm... ¿Qué dice aqu-?</p>
-        <button class="btn" onclick="goToScreen2()">▶ ABRIR</button>
+        <div class="button-container">
+            <button class="btn" onclick="goToScreen2()">▶ ABRIR</button>
+            <img src="foquita.png" alt="Foquita" class="seal-keychain">
+        </div>
     </div>
 
     <!-- Pantalla 2 - Selecciona amiga -->
