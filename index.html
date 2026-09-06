@@ -51,6 +51,54 @@
             }
         }
 
+        /* Foquitas nadando */
+        .swimming-seal {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.3;
+            z-index: 2;
+            font-size: 60px;
+            animation: swim 15s infinite linear;
+        }
+
+        @keyframes swim {
+            0% {
+                left: -100px;
+                transform: scaleX(1);
+            }
+            50% {
+                transform: scaleX(-1) translateY(-20px);
+            }
+            100% {
+                left: 100vw;
+                transform: scaleX(1);
+            }
+        }
+
+        .seal-1 {
+            top: 15%;
+            animation-duration: 18s;
+            animation-delay: 0s;
+        }
+
+        .seal-2 {
+            top: 35%;
+            animation-duration: 20s;
+            animation-delay: 5s;
+        }
+
+        .seal-3 {
+            top: 55%;
+            animation-duration: 22s;
+            animation-delay: 10s;
+        }
+
+        .seal-4 {
+            top: 75%;
+            animation-duration: 19s;
+            animation-delay: 7s;
+        }
+
         /* Medusas de fondo */
         .jellyfish {
             position: fixed;
@@ -237,10 +285,14 @@
         .screen3 {
             width: 90%;
             max-width: 700px;
+            max-height: 90vh;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 30px;
             padding: 2rem;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
         }
 
         .card-header {
@@ -248,6 +300,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
+            flex-shrink: 0;
         }
 
         .card-header h2 {
@@ -264,6 +317,7 @@
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
 
         .back-btn:hover {
@@ -283,12 +337,14 @@
             border-left: 5px solid #7dd3c0;
             white-space: pre-wrap;
             word-wrap: break-word;
+            flex-shrink: 0;
         }
 
         .character-container {
             display: flex;
             justify-content: center;
-            margin-top: 2rem;
+            margin-top: 1rem;
+            flex-shrink: 0;
         }
 
         .character-img {
@@ -314,6 +370,7 @@
 
             .screen3 {
                 padding: 1rem;
+                max-height: 85vh;
             }
 
             .jellyfish-1 {
@@ -340,6 +397,29 @@
             .button-container {
                 gap: 1rem;
             }
+
+            .swimming-seal {
+                font-size: 40px;
+            }
+        }
+
+        /* Scrollbar personalizado */
+        .screen3::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .screen3::-webkit-scrollbar-track {
+            background: rgba(173, 216, 230, 0.2);
+            border-radius: 10px;
+        }
+
+        .screen3::-webkit-scrollbar-thumb {
+            background: #7dd3c0;
+            border-radius: 10px;
+        }
+
+        .screen3::-webkit-scrollbar-thumb:hover {
+            background: #5bc0de;
         }
     </style>
 </head>
@@ -349,6 +429,12 @@
     <div class="jellyfish jellyfish-2">🪼</div>
     <div class="jellyfish jellyfish-3">🪼</div>
     <div class="jellyfish jellyfish-4">🪼</div>
+
+    <!-- Foquitas nadando -->
+    <div class="swimming-seal seal-1">🦭</div>
+    <div class="swimming-seal seal-2">🦭</div>
+    <div class="swimming-seal seal-3">🦭</div>
+    <div class="swimming-seal seal-4">🦭</div>
 
     <!-- Burbujas decorativas -->
     <div id="bubbles-container"></div>
@@ -432,6 +518,9 @@
 
             document.getElementById('screen2').classList.remove('active');
             document.getElementById('screen3').classList.add('active');
+            
+            // Reset scroll position
+            document.getElementById('screen3').scrollTop = 0;
         }
 
         // Inicializar burbujas
