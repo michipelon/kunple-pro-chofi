@@ -1,14 +1,334 @@
-index.html
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Chofi ♡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #a8e6e3 0%, #b5d8f0 50%, #d4e8f7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Burbujas flotantes */
+        .bubble {
+            position: fixed;
+            bottom: -50px;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s infinite ease-in;
+        }
+
+        @keyframes float {
+            0% {
+                bottom: -50px;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                bottom: 100vh;
+                opacity: 0;
+            }
+        }
+
+        /* Pantalla 1 - Portada */
+        .screen {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .screen1 {
+            gap: 2rem;
+        }
+
+        .screen1 h1 {
+            font-size: 2.5em;
+            color: #2c5f7c;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .screen1 p {
+            font-size: 1.3em;
+            color: #4a7c9e;
+            font-style: italic;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #7dd3c0 0%, #5bc0de 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(91, 192, 222, 0.4);
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(91, 192, 222, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Pantalla 2 - Selecciona amiga */
+        .screen2 {
+            gap: 2rem;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .screen2 h2 {
+            font-size: 2em;
+            color: #2c5f7c;
+            margin-bottom: 1rem;
+        }
+
+        .friends-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .friend-btn {
+            padding: 20px;
+            font-size: 1.1em;
+            background: linear-gradient(135deg, #b5e7e8 0%, #a8dce4 100%);
+            color: #2c5f7c;
+            border: 3px solid #7dd3c0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .friend-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(125, 211, 192, 0.5);
+            background: linear-gradient(135deg, #a8dce4 0%, #9dd1d8 100%);
+        }
+
+        /* Pantalla 3 - Tarjeta */
+        .screen3 {
+            width: 90%;
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .card-header h2 {
+            font-size: 2em;
+            color: #2c5f7c;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: #7dd3c0;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #5bc0de;
+            transform: translateY(-2px);
+        }
+
+        .message-text {
+            font-size: 1.1em;
+            color: #4a7c9e;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            text-align: left;
+            background: rgba(173, 216, 230, 0.2);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 5px solid #7dd3c0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .character-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .character-img {
+            max-width: 300px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .screen1 h1 {
+                font-size: 1.8em;
+            }
+
+            .screen2 h2 {
+                font-size: 1.5em;
+            }
+
+            .character-img {
+                max-width: 200px;
+            }
+
+            .screen3 {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <h1>Feliz cumpleaños, Chofi pro homealone ♡</h1>
-    <p>Hay una pequeña sorpresa para ti...</p>
+    <!-- Burbujas decorativas -->
+    <div id="bubbles-container"></div>
 
-    <button>ENTRAR</button>
+    <!-- Pantalla 1 - Portada -->
+    <div class="screen screen1 active" id="screen1">
+        <h1>✨ Sofi Pro Homealoooneeeeeee..! ✨</h1>
+        <p>Hmm... ¿Qué dice aqu-?</p>
+        <button class="btn" onclick="goToScreen2()">▶ ABRIR</button>
+    </div>
+
+    <!-- Pantalla 2 - Selecciona amiga -->
+    <div class="screen screen2" id="screen2">
+        <h2>💕 Elige una amiga 💕</h2>
+        <div class="friends-container">
+            <button class="friend-btn" onclick="showCard('issah')">💙 Issah-chan</button>
+            <button class="friend-btn" onclick="showCard('ally')">💜 Ally-chan</button>
+            <button class="friend-btn" onclick="showCard('duberek')">🖤 Duberek-chan</button>
+        </div>
+    </div>
+
+    <!-- Pantalla 3 - Tarjeta -->
+    <div class="screen screen3" id="screen3">
+        <div class="card-header">
+            <h2 id="friend-name">Nombre</h2>
+            <button class="back-btn" onclick="goToScreen2()">← Volver</button>
+        </div>
+        <div class="message-text" id="friend-message">Mensaje</div>
+        <div class="character-container">
+            <img id="friend-image" class="character-img" src="" alt="Personaje">
+        </div>
+    </div>
+
+    <script>
+        // Crear burbujas flotantes
+        function createBubbles() {
+            const container = document.getElementById('bubbles-container');
+            setInterval(() => {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                bubble.style.left = Math.random() * window.innerWidth + 'px';
+                bubble.style.animationDuration = (4 + Math.random() * 4) + 's';
+                container.appendChild(bubble);
+                setTimeout(() => bubble.remove(), 8000);
+            }, 1000);
+        }
+
+        // Datos de las amigas
+        const friends = {
+            issah: {
+                name: '💙 Issah-chan',
+                message: 'olq sofi uwu sabecs q te kiero mucho osiois , espero q un dia lisandrito-chan te hable y eso muy pro yyyy ojala konozcas a Sunghoon un dia d eztos mhh si.. kda k veo a Cosmo me recuerda a vos por ESE día ke hicimos \'\'cosplay\'\' yyyy ps quedo raro pero está bien uwu,, al igual q cada que veo a Owynn es inevitable no pensar en vos, al igual k las focas/medusassss-- JAJAJAJ pero mhmmmmm no se, t kiero mucho aunq no lo parezca o((>ω< ))o',
+                image: 'https://i.pinimg.com/736x/7c/1f/12/7c1f121c8e62e5c79f53ca95e9e2e49f.png'
+            },
+            ally: {
+                name: '💜 Ally-chan',
+                message: 'La razón por la que me recuerdas a Tina Kitten es por su amabilidad y su humor, tal y komotu, tu amabilidad es honesta y tu humor es idéntico, aveces puede ser demasiado DEmasiado negro pero no deja de ser tuyo y eso es una de las cosas que te hace ser tu, Gracias por mantener siempre esa personalidad intacta, por abrazar tu humor sin rodeos y por ser ese espacio divertido, caótico y cálido donde siempre da gusto estar.\n\nSunghoon me recuerda a ti, siempre que lo veo es komo "OMG SUNGHOON SOFIFIIFI" ahre tampoco así pero siempre me siento así, igual k ver al gustavin y al sabroso.\n\nPor eso te tqm amiga :) 💕💕',
+                image: 'https://i.pinimg.com/736x/8c/7e/67/8c7e679d6e39a94e56b77e4c8b0a31c2.jpg'
+            },
+            duberek: {
+                name: '🖤 Duberek-chan',
+                message: 'Sos mi vieja w, mi capivro cuando todos se van y nos quedamos chillando a lo autista 💔',
+                image: 'https://i.pinimg.com/736x/e8/a8/0b/e8a80b0b8b3c8d7e9f7c8e8e0b8e0b8e.png'
+            }
+        };
+
+        function goToScreen2() {
+            document.getElementById('screen1').classList.remove('active');
+            document.getElementById('screen3').classList.remove('active');
+            document.getElementById('screen2').classList.add('active');
+        }
+
+        function showCard(friend) {
+            const data = friends[friend];
+            document.getElementById('friend-name').textContent = data.name;
+            document.getElementById('friend-message').textContent = data.message;
+            document.getElementById('friend-image').src = data.image;
+
+            document.getElementById('screen2').classList.remove('active');
+            document.getElementById('screen3').classList.add('active');
+        }
+
+        // Inicializar burbujas
+        createBubbles();
+    </script>
 </body>
 </html>
